@@ -7,6 +7,7 @@ namespace Game {
     public class MinigameBase : MonoBehaviour
     {
         public static System.Action<bool> OnMinigame;
+        public static System.Action OnMinigameFinished;
 
         public ProperPositionCheckerBase checker;
         [SerializeField] private Transform tempParentTransform;
@@ -30,11 +31,18 @@ namespace Game {
             isMinigameActive = false;
             Controlls.OnMouseDown += MouseDown;
             Controlls.OnMouseUp += MouseUp;
+            Controlls.OnMouseRightDown += ExitMinigame;
+            Reactor.OnReactorOverheat += EmergencyExitMinigame;
+            Player.OnPlayerRadioactive += EmergencyExitMinigame;
+            
         }
         private void OnDestroy()
         {
             Controlls.OnMouseDown -= MouseDown;
             Controlls.OnMouseUp -= MouseUp;
+            Controlls.OnMouseRightDown -= ExitMinigame;
+            Reactor.OnReactorOverheat += EmergencyExitMinigame;
+            Player.OnPlayerRadioactive += EmergencyExitMinigame;
         }
 
         protected virtual void Update()
@@ -63,9 +71,6 @@ namespace Game {
                     tempParentTransform.position = hitData.point;
                 }
             }
-
-            if(Input.GetKeyUp(KeyCode.Mouse1) && isMinigameActive)
-                ExitMinigame();
         }
 
         private void PrepareMinigame()
@@ -142,6 +147,9 @@ namespace Game {
 
         public virtual void ExitMinigame()
         {
+            if(!isMinigameActive)
+                return;
+
             vCam.gameObject.SetActive(false);
             Utility.LockCursor(true);
             StartCoroutine(WaitForBlend());
@@ -153,12 +161,18 @@ namespace Game {
                 OnMinigame?.Invoke(false);
             }
         }
+        private void EmergencyExitMinigame()
+        {
+            vCam.gameObject.SetActive(false);
+            Utility.LockCursor(false);
+        }
 
         public virtual void EndMinigame()
         {
             vCam.gameObject.SetActive(false);
             Utility.LockCursor(true);
             isMinigameActive = false;
+            OnMinigameFinished?.Invoke();
             StartCoroutine(WaitForBlend());
 
             IEnumerator WaitForBlend()

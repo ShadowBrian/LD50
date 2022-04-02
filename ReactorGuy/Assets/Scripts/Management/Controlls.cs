@@ -9,6 +9,7 @@ namespace Game
         public static System.Action<bool> OnPause;
         public static System.Action<RaycastHit> OnMouseDown;
         public static System.Action OnMouseUp;
+        public static System.Action OnMouseRightDown;
         GameManager.GameState lastState;
 
         private bool isHoldingMouse0;
@@ -19,6 +20,11 @@ namespace Game
         {
             if(Input.GetKeyDown(KeyCode.Escape))
                 Cursor.lockState = CursorLockMode.None;
+
+
+            if(GameManager.Game == GameManager.GameState.Start || GameManager.Game == GameManager.GameState.End)
+                return;
+
 
             if(Input.GetKeyDown(KeyCode.Q))
             {
@@ -57,6 +63,11 @@ namespace Game
                     isHoldingMouse0 = false;
                     OnMouseUp?.Invoke();
                 }
+            }
+
+            if(Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                OnMouseRightDown?.Invoke();
             }
         }
     }

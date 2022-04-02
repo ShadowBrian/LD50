@@ -9,25 +9,83 @@ namespace Game
     public class CharacterController : MonoBehaviour
     {
         [SerializeReference] private CinemachineVirtualCamera lookCamera;
+        [SerializeReference] private CinemachineVirtualCamera layDownCamera;
         [SerializeReference] private float sensitivity = 1f;
         [SerializeReference] private float playerSpeed = 0.04f;
         private CinemachinePOV aimCam;
+        private CinemachineBasicMultiChannelPerlin noise;
         //private float xRotation = 0;
 
         private void Awake()
         {
             aimCam = lookCamera.GetCinemachineComponent<CinemachinePOV>();
+            noise = lookCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            
             GameStarter.OnGameStart += StartMoving;
             Controlls.OnPause += PauseCamera;
             MinigameBase.OnMinigame += PauseCamera;
+            Reactor.OnReactorOverheat += PauseCameraWithShake;
+            Player.OnPlayerRadioactive += PauseCameraWithLayDown;
+            PauseCamera(true);
         }
         private void OnDestroy()
         {
             GameStarter.OnGameStart -= StartMoving;
             Controlls.OnPause -= PauseCamera;
             MinigameBase.OnMinigame -= PauseCamera;
+            Reactor.OnReactorOverheat -= PauseCameraWithShake;
+            Player.OnPlayerRadioactive -= PauseCameraWithLayDown;
         }
 
+        private void PauseCameraWithShake()
+        {
+            PauseCamera(true);
+            StartCoroutine(IncreaseShake());
+            IEnumerator IncreaseShake()
+            {
+                float maxTime = 10f;
+                float timer = 0;
+                while(true)
+                {
+                    yield return null;
+                    timer += Time.deltaTime;
+                    float t = timer / maxTime;
+                    float newAlpha = Mathf.Lerp(0, 10, t);
+                    noise.m_AmplitudeGain = newAlpha;
+                    if(newAlpha >= 10)
+                    {
+                        noise.m_AmplitudeGain = 0;
+                        yield break;
+                    }
+                }
+            }
+        }
+        private void PauseCameraWithLayDown()
+        {
+            PauseCamera(true);
+            layDownCamera.gameObject.SetActive(true);
+            lookCamera.gameObject.SetActive(false);
+            noise = layDownCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            StartCoroutine(IncreaseShake());
+            IEnumerator IncreaseShake()
+            {
+                float maxTime = 10f;
+                float timer = 0;
+                while(true)
+                {
+                    yield return null;
+                    timer += Time.deltaTime;
+                    float t = timer / maxTime;
+                    float newAlpha = Mathf.Lerp(0, 5, t);
+                    noise.m_AmplitudeGain = newAlpha;
+                    if(newAlpha >= 5)
+                    {
+                        noise.m_AmplitudeGain = 0;
+                        yield break;
+                    }
+                }
+            }
+        }
         private void PauseCamera(bool isPaused)
         {
             aimCam.m_VerticalAxis.m_MaxSpeed = isPaused ? 0 : 1;
@@ -42,6 +100,7 @@ namespace Game
                 yield return new WaitForSeconds(1.1f);
                 lookCamera.transform.rotation = Quaternion.LookRotation(transform.forward);
                 Utility.LockCursor(true);
+                PauseCamera(false);
                 GameManager.Game = GameManager.GameState.Play;
                 GameManager.Player = GameManager.PlayerState.Resting;
             }
