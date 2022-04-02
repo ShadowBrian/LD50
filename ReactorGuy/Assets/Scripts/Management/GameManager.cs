@@ -9,8 +9,8 @@ namespace Game {
         public static Action OnTownEscaped;
 
         public enum GameState { Start, Play, Minigame, Paused, End }
-        public enum PlayerState { Radioactive, Resting }
-        public enum GameDifficulty { Easy, Medium, Hard }
+        public enum PlayerState { Radioactive, Neutral, Resting }
+        public enum GameDifficulty { Easy, Medium, Hard, Impossible }
 
         public static GameState Game { get; set; } = GameState.Start;
         public static PlayerState Player { get; set; } = PlayerState.Resting;
@@ -18,7 +18,7 @@ namespace Game {
 
         public static bool IsGameWon { get; private set; } = false;
         public static float TownEscaped { get; private set; } = 0f;
-        private readonly float maxGameTime = 10f;
+        private readonly float maxGameTime = 180f;
 
         private void Awake()
         {
@@ -58,6 +58,7 @@ namespace Game {
                 }
                 else
                 {
+                    Difficulty = GameDifficulty.Impossible;
                     IsGameWon = true;
                     OnTownEscaped?.Invoke();
                 }

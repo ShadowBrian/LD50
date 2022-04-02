@@ -9,17 +9,19 @@ namespace Game {
         public static float RadioactiveMeter { get; private set; }
         private float RadioactiveSpeed => GameManager.Difficulty switch
         {
-            GameManager.GameDifficulty.Easy => 20f,
-            GameManager.GameDifficulty.Medium => 10f,
-            GameManager.GameDifficulty.Hard => 5f,
-            _ => 20f,
+            GameManager.GameDifficulty.Easy => 40f,
+            GameManager.GameDifficulty.Medium => 35f,
+            GameManager.GameDifficulty.Hard => 30f,
+            GameManager.GameDifficulty.Impossible => 15f,
+            _ => 40f,
         };
         private float RecoverSpeed => GameManager.Difficulty switch
         {
-            GameManager.GameDifficulty.Easy => 3f,
-            GameManager.GameDifficulty.Medium => 5f,
+            GameManager.GameDifficulty.Easy => 5f,
+            GameManager.GameDifficulty.Medium => 6f,
             GameManager.GameDifficulty.Hard => 7f,
-            _ => 3f,
+            GameManager.GameDifficulty.Impossible => 1f,
+            _ => 5f,
         };
 
 
@@ -30,7 +32,7 @@ namespace Game {
 
             if(GameManager.Player == GameManager.PlayerState.Radioactive)
                 IncreaseRadioactiveness();
-            else
+            else if(GameManager.Player == GameManager.PlayerState.Resting)
                 DecreaseRadioactiveness();
         }
 

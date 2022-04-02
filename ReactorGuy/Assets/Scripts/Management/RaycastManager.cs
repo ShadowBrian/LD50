@@ -23,7 +23,7 @@ namespace Game
         {
             bool isHit = false;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(ray, out RaycastHit hitData, 1000, maskTempAndTriggers))
+            if(Physics.Raycast(ray, out RaycastHit hitData, 2, maskTempAndTriggers))
                 isHit = true;
             return (isHit, hitData);
         }
@@ -31,7 +31,7 @@ namespace Game
         {
             bool isHit = false;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if(Physics.Raycast(ray, out RaycastHit hitData, 1000, maskTemporaryparent))
+            if(Physics.Raycast(ray, out RaycastHit hitData, 2, maskTemporaryparent))
                 isHit = true;
             return (isHit, hitData);
         }

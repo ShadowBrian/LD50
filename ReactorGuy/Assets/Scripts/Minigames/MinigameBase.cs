@@ -14,6 +14,7 @@ namespace Game {
         [SerializeField] private Plane holdingPlane;
         [SerializeField] private CinemachineVirtualCamera vCam;
         [SerializeField] private List<MinigameElementBase> elements;
+        private Collider minigameCollider;
         private bool isMinigameActive;
         private bool isMinigameOnCooldown;
         private MinigameElementBase holdingElement;
@@ -23,6 +24,7 @@ namespace Game {
 
         protected virtual void Start()
         {
+            minigameCollider = GetComponent<Collider>();
             foreach(var element in elements)
             {
                 element.OnChanged += CheckIfMinigameDone;
@@ -136,7 +138,7 @@ namespace Game {
         {
             if(isMinigameOnCooldown)
                 return false;
-
+            minigameCollider.enabled = false;
             GameManager.Game = GameManager.GameState.Minigame;
             Utility.LockCursor(false);
             vCam.gameObject.SetActive(true);
@@ -150,6 +152,7 @@ namespace Game {
             if(!isMinigameActive)
                 return;
 
+            minigameCollider.enabled = true;
             vCam.gameObject.SetActive(false);
             Utility.LockCursor(true);
             StartCoroutine(WaitForBlend());
@@ -163,12 +166,14 @@ namespace Game {
         }
         private void EmergencyExitMinigame()
         {
+            minigameCollider.enabled = true;
             vCam.gameObject.SetActive(false);
             Utility.LockCursor(false);
         }
 
         public virtual void EndMinigame()
         {
+            minigameCollider.enabled = true;
             vCam.gameObject.SetActive(false);
             Utility.LockCursor(true);
             isMinigameActive = false;

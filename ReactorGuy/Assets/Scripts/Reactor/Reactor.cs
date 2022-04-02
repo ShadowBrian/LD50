@@ -14,9 +14,10 @@ namespace Game
 
         private float ReactorMaxHeatTime => GameManager.Difficulty switch
         {
-            GameManager.GameDifficulty.Easy => 20f,
-            GameManager.GameDifficulty.Medium => 10f,
-            GameManager.GameDifficulty.Hard => 5f,
+            GameManager.GameDifficulty.Easy => 40f,
+            GameManager.GameDifficulty.Medium => 35f,
+            GameManager.GameDifficulty.Hard => 30f,
+            GameManager.GameDifficulty.Impossible => 15f,
             _ => 20f,
         };
 
