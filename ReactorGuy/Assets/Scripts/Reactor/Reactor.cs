@@ -32,7 +32,7 @@ namespace Game
 
         private void LowerReactorHeat()
         {
-            ReactorHeat = Mathf.Min(maxSliderValue, ReactorHeat - 0.5f);
+            ReactorHeat = Mathf.Max(0, ReactorHeat - 0.5f);
         }
 
 
