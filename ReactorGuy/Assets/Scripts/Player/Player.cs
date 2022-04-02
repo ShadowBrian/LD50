@@ -53,7 +53,7 @@ namespace Game {
         }
         private void DecreaseRadioactiveness()
         {
-            RadioactiveMeter -= Time.deltaTime * RecoverSpeed;
+            RadioactiveMeter -= Time.deltaTime / RecoverSpeed;
             RadioactiveMeter = Mathf.Clamp01(RadioactiveMeter);
         }
 
