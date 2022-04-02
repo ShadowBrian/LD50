@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc1f6339f1a600343972d7939800fe09, type: 3}
-  m_Name: Data_WiresPositions_1
+  m_Script: {fileID: 11500000, guid: 9e28bf4389c31af48a27a39066db07f2, type: 3}
+  m_Name: WiresPositions
   m_EditorClassIdentifier: 
   _0_0: 1
   _0_1: 0

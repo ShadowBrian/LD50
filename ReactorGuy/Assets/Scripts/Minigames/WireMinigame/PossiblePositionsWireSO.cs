@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Data", fileName = "Data/WiresPositions")]
-public class PossiblePositionsSO : ScriptableObject
+[CreateAssetMenu(menuName = "Data/WiresPositions", fileName = "WiresPositions")]
+public class PossiblePositionsWireSO : ScriptableObject
 {
     [SerializeField] bool _0_0 = false;
     [SerializeField] bool _0_1 = false;

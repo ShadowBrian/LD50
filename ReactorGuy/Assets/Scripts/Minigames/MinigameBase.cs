@@ -8,7 +8,7 @@ namespace Game {
     {
         public static System.Action<bool> OnMinigame;
 
-        public ProperPositionChecker checker;
+        public ProperPositionCheckerBase checker;
         [SerializeField] private Transform tempParentTransform;
         [SerializeField] private Plane holdingPlane;
         [SerializeField] private CinemachineVirtualCamera vCam;
@@ -62,7 +62,7 @@ namespace Game {
             }
 
             if(Input.GetKeyUp(KeyCode.Space) && isMinigameActive)
-                EndMinigame();
+                ExitMinigame();
         }
 
         private void PrepareMinigame()
@@ -85,15 +85,15 @@ namespace Game {
             {
                 if(ReferenceEquals(item.transform, hitData.transform))
                 {
-                    if(item.type == MinigameElementBase.Type.Clickable)
+                    if(item is ClickableMinigameElement clickable)
                     {
-                        item.ChangeState();
+                        clickable.ChangeState();
                     }
-                    else if(item.type == MinigameElementBase.Type.Holdable)
+                    else if(item is HoldableMinigameElement holdable)
                     {
-                        holdingElement = item;
+                        holdingElement = holdable;
                         tempParentTransform.localPosition = holdingElement.transform.localPosition;
-                        item.ParentToTemporaryTransform(tempParentTransform);
+                        holdable.ParentToTemporaryTransform(tempParentTransform);
                     }
                 }
             }
@@ -104,9 +104,9 @@ namespace Game {
             if(!isMinigameActive)
                 return;
 
-            if(holdingElement)
+            if(holdingElement && holdingElement is HoldableMinigameElement holdable)
             {
-                holdingElement.ReleaseItem();
+                holdable.ReleaseItem();
                 holdingElement = null;
             }
         }
@@ -126,12 +126,30 @@ namespace Game {
 
         public void TryActivateMinigame()
         {
+            if(isMinigameOnCooldown)
+                return;
+
             GameManager.Game = GameManager.GameState.Minigame;
             Utility.LockCursor(false);
             vCam.gameObject.SetActive(true);
             isMinigameActive = true;
             OnMinigame?.Invoke(true);
         }
+
+        public void ExitMinigame()
+        {
+            vCam.gameObject.SetActive(false);
+            Utility.LockCursor(true);
+            StartCoroutine(WaitForBlend());
+
+            IEnumerator WaitForBlend()
+            {
+                yield return new WaitForSeconds(1f);
+                GameManager.Game = GameManager.GameState.Play;
+                OnMinigame?.Invoke(false);
+            }
+        }
+
         public void EndMinigame()
         {
             vCam.gameObject.SetActive(false);
