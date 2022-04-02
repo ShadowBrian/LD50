@@ -9,8 +9,8 @@ namespace Game
     public class CharacterController : MonoBehaviour
     {
         [SerializeReference] private CinemachineVirtualCamera lookCamera;
-        [SerializeReference] private float sensitivity = 100f;
-        [SerializeReference] private float playerSpeed = 0.02f;
+        [SerializeReference] private float sensitivity = 1f;
+        [SerializeReference] private float playerSpeed = 0.04f;
         private CinemachinePOV aimCam;
         //private float xRotation = 0;
 
@@ -74,16 +74,9 @@ namespace Game
 
         private void Rotation()
         {
-            float characterRotation = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivity;
-            //float cameraUpDown = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensitivity;
-
-            Quaternion characterRotate = Quaternion.Euler(0, characterRotation, 0);
+            float characterRotation = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivity * 120f;
+            Quaternion characterRotate = Quaternion.AngleAxis(characterRotation, Vector3.up);
             transform.rotation *= characterRotate;
-
-            //xRotation -= cameraUpDown;
-            //xRotation = Mathf.Clamp(xRotation, -70f, 70f);
-
-            //lookCamera.localRotation = Quaternion.Euler(xRotation, 0, 0);
         }
 
     }
