@@ -20,7 +20,7 @@ namespace Game {
         private readonly float cooldownTime = 5f;
 
 
-        private void Start()
+        protected virtual void Start()
         {
             foreach(var element in elements)
             {
@@ -37,8 +37,11 @@ namespace Game {
             Controlls.OnMouseUp -= MouseUp;
         }
 
-        private void Update()
+        protected virtual void Update()
         {
+            if(GameManager.Game == GameManager.GameState.Paused)
+                return;
+
             if(isMinigameOnCooldown)
             {
                 cooldown += Time.deltaTime;
@@ -61,7 +64,7 @@ namespace Game {
                 }
             }
 
-            if(Input.GetKeyUp(KeyCode.Space) && isMinigameActive)
+            if(Input.GetKeyUp(KeyCode.Mouse1) && isMinigameActive)
                 ExitMinigame();
         }
 
@@ -124,19 +127,20 @@ namespace Game {
                 EndMinigame();
         }
 
-        public void TryActivateMinigame()
+        public virtual bool TryActivateMinigame()
         {
             if(isMinigameOnCooldown)
-                return;
+                return false;
 
             GameManager.Game = GameManager.GameState.Minigame;
             Utility.LockCursor(false);
             vCam.gameObject.SetActive(true);
             isMinigameActive = true;
             OnMinigame?.Invoke(true);
+            return true;
         }
 
-        public void ExitMinigame()
+        public virtual void ExitMinigame()
         {
             vCam.gameObject.SetActive(false);
             Utility.LockCursor(true);
@@ -150,7 +154,7 @@ namespace Game {
             }
         }
 
-        public void EndMinigame()
+        public virtual void EndMinigame()
         {
             vCam.gameObject.SetActive(false);
             Utility.LockCursor(true);

@@ -13,7 +13,7 @@ namespace Game
         {
             base.Awake();
             followTransform.position = transform.position;
-            if(this is not SliderMinigameElement)
+            if(this is not SliderHoldableMinigameElement && this is not FixHoldableMinigameElement) //XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
                 properChecker = (ProperWirePositionChecker)checker;
         }
 

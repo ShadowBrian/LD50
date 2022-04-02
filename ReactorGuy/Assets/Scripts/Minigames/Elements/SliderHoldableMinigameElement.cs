@@ -4,14 +4,9 @@ using UnityEngine;
 
 namespace Game
 {
-    public class SliderMinigameElement : HoldableMinigameElement
+    public class SliderHoldableMinigameElement : HoldableMinigameElement
     {
         [SerializeField] private SliderPosition position;
-
-        protected override void Awake()
-        {
-            base.Awake();
-        }
 
         protected override void Update()
         {
@@ -20,7 +15,6 @@ namespace Game
             smoothedLocalPosition.x = transform.localPosition.x;
             smoothedLocalPosition.z = transform.localPosition.z;
             transform.localPosition = smoothedLocalPosition;
-
         }
 
         public override void ResetElement()
