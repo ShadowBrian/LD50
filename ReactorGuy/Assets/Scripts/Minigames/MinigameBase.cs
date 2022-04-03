@@ -10,7 +10,8 @@ namespace Game {
         public static System.Action OnMinigameFinished;
 
         public ProperPositionCheckerBase checker;
-        [SerializeField] private Light activationLight;
+        [SerializeField] private Light redLight;
+        [SerializeField] private Light whiteLight;
         [SerializeField] private Transform tempParentTransform;
         [SerializeField] private Plane holdingPlane;
         [SerializeField] private CinemachineVirtualCamera vCam;
@@ -78,7 +79,8 @@ namespace Game {
 
         private void PrepareMinigame()
         {
-            activationLight.enabled = true;
+            redLight.enabled = true;
+            whiteLight.enabled = false;
             isMinigameOnCooldown = false;
             cooldown = 0;
             checker.CheckPosition();
@@ -180,7 +182,8 @@ namespace Game {
             Utility.LockCursor(true);
             isMinigameActive = false;
             OnMinigameFinished?.Invoke();
-            activationLight.enabled = false;
+            redLight.enabled = false;
+            whiteLight.enabled = true;
             StartCoroutine(WaitForBlend());
 
             IEnumerator WaitForBlend()

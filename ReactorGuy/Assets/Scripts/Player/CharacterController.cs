@@ -140,7 +140,8 @@ namespace Game
 
         private void Rotation()
         {
-            float characterRotation = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivity * 120f;
+            float characterRotation = Mathf.Clamp(Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivity * 120f, -sensitivity*3, sensitivity*3);
+            Debug.Log("Rotate: " + characterRotation);
             Quaternion characterRotate = Quaternion.AngleAxis(characterRotation, Vector3.up);
             transform.rotation *= characterRotate;
         }
