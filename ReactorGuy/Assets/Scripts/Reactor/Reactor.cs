@@ -22,21 +22,44 @@ namespace Game
         protected Renderer meshRenderer;
         protected MaterialPropertyBlock propertyBlock;
 
-        private float ReactorMaxHeatTime => GameManager.Difficulty switch
+        private float ReactorMaxHeatTime => GameManager.Mode switch
         {
-            GameManager.GameDifficulty.Easy => 40f,
-            GameManager.GameDifficulty.Medium => 32.5f,
-            GameManager.GameDifficulty.Hard => 25f,
-            GameManager.GameDifficulty.Impossible => 15f,
-            _ => 20f,
+            GameManager.GameMode.Easy => GameManager.Difficulty switch
+            {
+                GameManager.GameDifficulty.Easy => 50f,
+                GameManager.GameDifficulty.Medium => 45f,
+                GameManager.GameDifficulty.Hard => 40f,
+                GameManager.GameDifficulty.Impossible => 15f,
+                _ => 20f,
+            },
+            _ => GameManager.Difficulty switch
+            {
+                GameManager.GameDifficulty.Easy => 40f,
+                GameManager.GameDifficulty.Medium => 33f,
+                GameManager.GameDifficulty.Hard => 28f,
+                GameManager.GameDifficulty.Impossible => 15f,
+                _ => 20f,
+            },
         };
-        private float ReactorRecover => GameManager.Difficulty switch
+
+        private float ReactorRecover => GameManager.Mode switch
         {
-            GameManager.GameDifficulty.Easy => 0.5f,
-            GameManager.GameDifficulty.Medium => 0.55f,
-            GameManager.GameDifficulty.Hard => 0.6f,
-            GameManager.GameDifficulty.Impossible => 0.3f,
-            _ => 0.3f,
+            GameManager.GameMode.Easy => GameManager.Difficulty switch
+            {
+                GameManager.GameDifficulty.Easy => 0.7f,
+                GameManager.GameDifficulty.Medium => 0.65f,
+                GameManager.GameDifficulty.Hard => 0.6f,
+                GameManager.GameDifficulty.Impossible => 0.5f,
+                _ => 0.3f,
+            },
+            _ => GameManager.Difficulty switch
+            {
+                GameManager.GameDifficulty.Easy => 0.6f,
+                GameManager.GameDifficulty.Medium => 0.55f,
+                GameManager.GameDifficulty.Hard => 0.5f,
+                GameManager.GameDifficulty.Impossible => 0.4f,
+                _ => 0.3f,
+            }
         };
 
         private void Awake()

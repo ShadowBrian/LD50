@@ -12,7 +12,9 @@ namespace Game {
         public enum GameState { Start, Play, Minigame, Paused, End }
         public enum PlayerState { Radioactive, Neutral, Resting }
         public enum GameDifficulty { Easy, Medium, Hard, Impossible }
+        public enum GameMode { Easy, Normal }
 
+        public static GameMode Mode { get; set; } = GameMode.Normal;
         public static GameState Game { get; set; } = GameState.Start;
         public static PlayerState Player { get; set; } = PlayerState.Neutral;
         public static GameDifficulty Difficulty { get; set; } = GameDifficulty.Easy;

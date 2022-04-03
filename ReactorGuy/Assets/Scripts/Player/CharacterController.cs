@@ -10,7 +10,7 @@ namespace Game
     {
         [SerializeReference] private CinemachineVirtualCamera lookCamera;
         [SerializeReference] private CinemachineVirtualCamera layDownCamera;
-        [SerializeReference] private float playerSpeed = 0.08f;
+        [SerializeReference] private float playerSpeed = 0.1f;
         private CinemachinePOV aimCam;
         private CinemachineBasicMultiChannelPerlin noise;
         public static float Sensitivity { get; private set; } = 1f;
@@ -130,12 +130,10 @@ namespace Game
 
         private void Movement()
         {
-            Vector3 forward = transform.forward;
-            Vector3 right = transform.right;
-            float curSpeedForward = playerSpeed * Input.GetAxisRaw("Vertical");
-            float curSpeedRight = playerSpeed * Input.GetAxisRaw("Horizontal");
-            transform.position += forward * curSpeedForward;
-            transform.position += right * curSpeedRight;
+            float curSpeedForward = Input.GetAxisRaw("Vertical");
+            float curSpeedRight = Input.GetAxisRaw("Horizontal");
+            Vector3 positionChange = transform.forward * curSpeedForward + transform.right * curSpeedRight;
+            transform.position += playerSpeed * Time.deltaTime * positionChange.normalized;
         }
 
         private void Rotation()

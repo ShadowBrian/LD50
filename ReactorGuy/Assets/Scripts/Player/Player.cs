@@ -7,21 +7,44 @@ namespace Game {
     {
         public static System.Action OnPlayerRadioactive;
         public static float RadioactiveMeter { get; private set; }
-        private float RadioactiveSpeed => GameManager.Difficulty switch
+        private float RadioactiveSpeed => GameManager.Mode switch
         {
-            GameManager.GameDifficulty.Easy => 40f,
-            GameManager.GameDifficulty.Medium => 35f,
-            GameManager.GameDifficulty.Hard => 30f,
-            GameManager.GameDifficulty.Impossible => 25f,
-            _ => 40f,
+            GameManager.GameMode.Easy => GameManager.Difficulty switch
+            {
+                GameManager.GameDifficulty.Easy => 50f,
+                GameManager.GameDifficulty.Medium => 45f,
+                GameManager.GameDifficulty.Hard => 40f,
+                GameManager.GameDifficulty.Impossible => 35f,
+                _ => 40f,
+            },
+            _ => GameManager.Difficulty switch
+            {
+                GameManager.GameDifficulty.Easy => 40f,
+                GameManager.GameDifficulty.Medium => 35f,
+                GameManager.GameDifficulty.Hard => 30f,
+                GameManager.GameDifficulty.Impossible => 25f,
+                _ => 40f,
+            },
         };
-        private float RecoverSpeed => GameManager.Difficulty switch
+
+        private float RecoverSpeed => GameManager.Mode switch
         {
-            GameManager.GameDifficulty.Easy => 15f,
-            GameManager.GameDifficulty.Medium => 10f,
-            GameManager.GameDifficulty.Hard => 5f,
-            GameManager.GameDifficulty.Impossible => 5f,
-            _ => 5f,
+            GameManager.GameMode.Easy => GameManager.Difficulty switch
+            {
+                GameManager.GameDifficulty.Easy => 10f,
+                GameManager.GameDifficulty.Medium => 5f,
+                GameManager.GameDifficulty.Hard => 2f,
+                GameManager.GameDifficulty.Impossible => 2f,
+                _ => 5f,
+            },
+            _ => GameManager.Difficulty switch
+            {
+                GameManager.GameDifficulty.Easy => 12f,
+                GameManager.GameDifficulty.Medium => 8f,
+                GameManager.GameDifficulty.Hard => 5f,
+                GameManager.GameDifficulty.Impossible => 5f,
+                _ => 5f,
+            }
         };
 
         private float soundTimer = 0;
