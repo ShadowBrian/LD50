@@ -12,14 +12,14 @@ namespace Game {
             GameManager.GameDifficulty.Easy => 40f,
             GameManager.GameDifficulty.Medium => 35f,
             GameManager.GameDifficulty.Hard => 30f,
-            GameManager.GameDifficulty.Impossible => 15f,
+            GameManager.GameDifficulty.Impossible => 25f,
             _ => 40f,
         };
         private float RecoverSpeed => GameManager.Difficulty switch
         {
-            GameManager.GameDifficulty.Easy => 5f,
-            GameManager.GameDifficulty.Medium => 7f,
-            GameManager.GameDifficulty.Hard => 9f,
+            GameManager.GameDifficulty.Easy => 15f,
+            GameManager.GameDifficulty.Medium => 10f,
+            GameManager.GameDifficulty.Hard => 5f,
             GameManager.GameDifficulty.Impossible => 5f,
             _ => 5f,
         };

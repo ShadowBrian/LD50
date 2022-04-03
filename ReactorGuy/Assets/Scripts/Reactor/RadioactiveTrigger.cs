@@ -6,6 +6,8 @@ using UnityEngine;
 public class RadioactiveTrigger : MonoBehaviour
 {
     [SerializeField] private bool isSafeZone;
+    [SerializeField] private GameObject healthParticle;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
@@ -14,6 +16,7 @@ public class RadioactiveTrigger : MonoBehaviour
             {
                 Game.GameManager.Player = Game.GameManager.PlayerState.Resting;
                 Game.SoundManager.PlaySound(Game.SoundManager.Sound.RadiationRest);
+                healthParticle.SetActive(true);
             }
             else
             {
@@ -27,6 +30,7 @@ public class RadioactiveTrigger : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             Game.GameManager.Player = Game.GameManager.PlayerState.Neutral;
+            healthParticle.SetActive(false);
         }
     }
 }

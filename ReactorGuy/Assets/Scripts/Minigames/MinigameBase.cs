@@ -21,7 +21,7 @@ namespace Game {
         private bool isMinigameOnCooldown;
         private MinigameElementBase holdingElement;
         private float cooldown = 0;
-        private readonly float cooldownTime = 25f;
+        private readonly float cooldownTime = 18f;
 
 
         protected virtual void Start()
