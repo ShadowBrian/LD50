@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
@@ -17,18 +18,8 @@ public class SettingsManager : MonoBehaviour
         audioSlider.onValueChanged.RemoveAllListeners();
         sensitivitySlider.onValueChanged.AddListener(SetNewSensitivity);
         audioSlider.onValueChanged.AddListener(SetNewAudio);
-
-        Game.Controlls.OnPause += Deselect;
-    }
-    private void OnDestroy()
-    {
-        Game.Controlls.OnPause -= Deselect;
     }
 
-    private void Deselect(bool _)
-    {
-
-    }
 
     private void SetNewSensitivity(float sensitivity)
     {

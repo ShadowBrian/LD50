@@ -88,7 +88,7 @@ namespace Game {
 
         private void MouseDown(RaycastHit hitData)
         {
-            if(!isMinigameActive)
+            if(!isMinigameActive || GameManager.Game == GameManager.GameState.Paused)
                 return;
 
             foreach(var item in elements)
@@ -111,7 +111,7 @@ namespace Game {
 
         private void MouseUp()
         {
-            if(!isMinigameActive)
+            if(!isMinigameActive || GameManager.Game == GameManager.GameState.Paused)
                 return;
 
             if(holdingElement && holdingElement is HoldableMinigameElement holdable)

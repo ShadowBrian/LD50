@@ -22,7 +22,7 @@ namespace Game
                 Cursor.lockState = CursorLockMode.None;
 
 
-            if(GameManager.Game == GameManager.GameState.Start || GameManager.Game == GameManager.GameState.End)
+            if(GameManager.Game == GameManager.GameState.Start || GameManager.Game == GameManager.GameState.End || GameManager.Game == GameManager.GameState.Paused)
                 return;
 
 

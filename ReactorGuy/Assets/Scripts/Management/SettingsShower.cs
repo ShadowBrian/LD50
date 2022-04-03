@@ -7,8 +7,9 @@ namespace Game
     public class SettingsShower : MonoBehaviour
     {
         [SerializeField] private RectTransform settings;
+        [SerializeField] private CanvasGroup darkenG;
         private CanvasGroup canvasG;
-        private float initialPosition = -255;
+        private float initialPosition = -200;
         private float targetPosition = 0;
 
 
@@ -32,9 +33,17 @@ namespace Game
         private void ShowMenu(bool isPaused)
         {
             if(isPaused)
+            {
                 StartCoroutine(SmoothIn());
+                darkenG.alpha = 1;
+                darkenG.blocksRaycasts = true;
+            }
             else
+            {
                 StartCoroutine(SmoothOut());
+                darkenG.alpha = 0;
+                darkenG.blocksRaycasts = false;
+            }
         }
 
 
