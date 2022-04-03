@@ -10,7 +10,12 @@ namespace Game
 
         public static float ReactorHeat { get; set; } = 0f;
 
+        [SerializeField] private Light light1;
+        [SerializeField] private Light light2;
+
         private readonly float maxSliderValue = 0.999f;
+        protected Renderer meshRenderer;
+        protected MaterialPropertyBlock propertyBlock;
 
         private float ReactorMaxHeatTime => GameManager.Difficulty switch
         {
@@ -23,6 +28,14 @@ namespace Game
 
         private void Awake()
         {
+            propertyBlock = new MaterialPropertyBlock();
+            meshRenderer = GetComponentInChildren<Renderer>();
+            meshRenderer.GetPropertyBlock(propertyBlock);
+            ReactorHeat = 0;
+            propertyBlock.SetFloat("_Percentage", ReactorHeat);
+            meshRenderer.SetPropertyBlock(propertyBlock);
+            UpdateLights();
+
             MinigameBase.OnMinigameFinished += LowerReactorHeat;
         }
         private void OnDestroy()
@@ -33,7 +46,8 @@ namespace Game
 
         private void LowerReactorHeat()
         {
-            ReactorHeat = Mathf.Max(0, ReactorHeat - 0.5f);
+            ReactorHeat *= 0.5f;
+            UpdateLights();
         }
 
 
@@ -46,6 +60,7 @@ namespace Game
             {
                 float reactorTimer = Time.deltaTime / ReactorMaxHeatTime;
                 ReactorHeat = Mathf.Min(maxSliderValue, ReactorHeat + reactorTimer);
+                UpdateLights();
                 if(ReactorHeat >= maxSliderValue)
                 {
                     Debug.Log("FINISH, game over");
@@ -54,6 +69,15 @@ namespace Game
                     OnReactorOverheat?.Invoke();
                 }
             }
+        }
+
+        private void UpdateLights()
+        {
+            propertyBlock.SetFloat("_Percentage", ReactorHeat);
+            meshRenderer.SetPropertyBlock(propertyBlock);
+            Color newColor = Color.Lerp(Color.green, Color.red, ReactorHeat);
+            light1.color = newColor;
+            light2.color = newColor;
         }
     }
 }
