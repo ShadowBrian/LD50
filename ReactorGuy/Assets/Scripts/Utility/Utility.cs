@@ -19,4 +19,13 @@ namespace Game
             Cursor.visible = !isLocked;
         }
     }
+
+    public static class ListX
+    {
+        public static T GetRandom<T>(this List<T> list)
+        {
+            int rand = Random.Range(0, list.Count);
+            return list[rand];
+        }
+    }
 }

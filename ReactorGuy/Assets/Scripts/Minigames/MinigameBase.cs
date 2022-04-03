@@ -108,6 +108,7 @@ namespace Game {
             {
                 if(ReferenceEquals(item.transform, hitData.transform))
                 {
+                    SoundManager.PlaySound(SoundManager.Sound.Blip);
                     if(item is ClickableMinigameElement clickable)
                     {
                         clickable.ChangeState();
@@ -129,6 +130,8 @@ namespace Game {
 
             if(holdingElement && holdingElement is HoldableMinigameElement holdable)
             {
+
+                SoundManager.PlaySound(SoundManager.Sound.Blip);
                 holdable.ReleaseItem();
                 holdingElement = null;
             }
@@ -158,6 +161,7 @@ namespace Game {
             vCam.gameObject.SetActive(true);
             isMinigameActive = true;
             OnMinigame?.Invoke(true);
+            SoundManager.PlaySound(SoundManager.Sound.MinigameEnter);
 
             return true;
         }
@@ -196,6 +200,7 @@ namespace Game {
             redLight.enabled = false;
             whiteLight.enabled = true;
             StartCoroutine(WaitForBlend());
+            SoundManager.PlaySound(SoundManager.Sound.MinigameDone);
 
             IEnumerator WaitForBlend()
             {

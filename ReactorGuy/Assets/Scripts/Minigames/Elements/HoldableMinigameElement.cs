@@ -38,7 +38,12 @@ namespace Game
                 propertyBlock.SetColor("_BaseColor", Color.green);
                 meshRenderer.SetPropertyBlock(propertyBlock);
             }
-
+            else
+            {
+                IsOnProperPosition = false;
+                propertyBlock.SetColor("_BaseColor", Color.red);
+                meshRenderer.SetPropertyBlock(propertyBlock);
+            }
 
             OnChanged?.Invoke();
         }

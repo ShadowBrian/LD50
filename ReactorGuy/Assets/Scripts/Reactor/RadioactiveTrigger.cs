@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class RadioactiveTrigger : MonoBehaviour
 {
     [SerializeField] private bool isSafeZone;
@@ -12,10 +13,12 @@ public class RadioactiveTrigger : MonoBehaviour
             if(isSafeZone)
             {
                 Game.GameManager.Player = Game.GameManager.PlayerState.Resting;
+                Game.SoundManager.PlaySound(Game.SoundManager.Sound.RadiationRest);
             }
             else
             {
                 Game.GameManager.Player = Game.GameManager.PlayerState.Radioactive;
+                Game.SoundManager.PlaySound(Game.SoundManager.Sound.RadiationHit);
             }
         }
     }

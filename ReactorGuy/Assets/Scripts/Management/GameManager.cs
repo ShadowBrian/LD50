@@ -7,21 +7,29 @@ namespace Game {
     public class GameManager : MonoBehaviour
     {
         public static Action OnTownEscaped;
+        public static Action OnDifficultyChange;
 
         public enum GameState { Start, Play, Minigame, Paused, End }
         public enum PlayerState { Radioactive, Neutral, Resting }
         public enum GameDifficulty { Easy, Medium, Hard, Impossible }
 
         public static GameState Game { get; set; } = GameState.Start;
-        public static PlayerState Player { get; set; } = PlayerState.Resting;
+        public static PlayerState Player { get; set; } = PlayerState.Neutral;
         public static GameDifficulty Difficulty { get; set; } = GameDifficulty.Easy;
 
         public static bool IsGameWon { get; private set; } = false;
         public static float TownEscaped { get; private set; } = 0f;
         private readonly float maxGameTime = 180f;
 
+        private GameDifficulty lastDifficulty;
+
         private void Awake()
         {
+            TownEscaped = 0f;
+            IsGameWon = false;
+            Player = PlayerState.Neutral;
+            Difficulty = GameDifficulty.Easy;
+            Game = GameState.Start;
             GameStarter.OnGameStart += StartGame;
             Controlls.OnMouseDownF += TryStartMinigame;
         }
@@ -44,6 +52,10 @@ namespace Game {
                 float townTimer = Time.deltaTime / maxGameTime;
                 TownEscaped += townTimer;
 
+                if(Difficulty != lastDifficulty)
+                    OnDifficultyChange?.Invoke();
+
+                lastDifficulty = Difficulty;
                 if(TownEscaped < 0.5f)
                 {
                     Difficulty = GameDifficulty.Easy;
@@ -61,6 +73,7 @@ namespace Game {
                     Difficulty = GameDifficulty.Impossible;
                     IsGameWon = true;
                     OnTownEscaped?.Invoke();
+                    SoundManager.PlaySound(SoundManager.Sound.Win);
                 }
             }
         }

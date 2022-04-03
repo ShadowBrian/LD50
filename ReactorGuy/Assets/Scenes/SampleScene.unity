@@ -495,7 +495,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 448.7622, y: 115.9625}
+  m_SizeDelta: {x: 382.9427, y: 259.9369}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &41996505
 MonoBehaviour:
@@ -517,7 +517,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: YOU DID NOT SEE YOUR CITY ESCAPED, YOU DIED OUT OF RADIATION
+  m_text: YOU DID NOT SEE YOUR CITY ESCAPED
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1276,10 +1276,10 @@ RectTransform:
   m_Father: {fileID: 902234908}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: -92.8347, y: 171.744}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &95259855
 MonoBehaviour:
@@ -1672,7 +1672,7 @@ RectTransform:
   m_Children:
   - {fileID: 1211011709}
   m_Father: {fileID: 1621219632}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4837,6 +4837,7 @@ GameObject:
   - component: {fileID: 682977577}
   - component: {fileID: 682977576}
   - component: {fileID: 682977578}
+  - component: {fileID: 682977579}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -4871,7 +4872,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4975,7 +4976,124 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85169044580ab5448a78827c258761b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosion: {fileID: 8300000, guid: c1476c204947e314baea2ee067b9c3c6, type: 3}
+  soundSource: {fileID: 682977576}
+  blips:
+  - {fileID: 8300000, guid: c523fd364f1a85d41b74cdb3108fbaee, type: 3}
+  - {fileID: 8300000, guid: d3cdc7eb464c01348be40d67e756f70d, type: 3}
+  - {fileID: 8300000, guid: 9069ad0f9e966534bbf5ffff7d4659ef, type: 3}
+  - {fileID: 8300000, guid: a908de093f9a33a45940e600fff1a130, type: 3}
+  - {fileID: 8300000, guid: 4ae77422d7a79dd4d92dcf3ea02a0fe7, type: 3}
+  - {fileID: 8300000, guid: 4270d45331160c141b8174396aa1e5dd, type: 3}
+  - {fileID: 8300000, guid: fb6ca77bf4246f640b181146fb717831, type: 3}
+  - {fileID: 8300000, guid: b7bda978baa05d542bb30bebda2a0ade, type: 3}
+  die: {fileID: 8300000, guid: 9637b1ca38a38d041ac85c87f621bdca, type: 3}
+  minigameEnter: {fileID: 8300000, guid: 7ebdcb96aa15d0d4cac70048f04e4570, type: 3}
+  minigameDone: {fileID: 8300000, guid: 19ce55ef9aab45c46bbc1eab4a0b5a53, type: 3}
+  explosion: {fileID: 8300000, guid: 76c77d06990fb7546a11e864ed5b1a69, type: 3}
+  radHit: {fileID: 8300000, guid: 2e018eef2c68924408c45c400238fed3, type: 3}
+  radRest: {fileID: 8300000, guid: bb56d6a5103a13b47a9a0d3269e3584f, type: 3}
+  win: {fileID: 8300000, guid: d7e8885954936ef4b97f70d93af74a74, type: 3}
+  musicSource: {fileID: 682977579}
+  musics:
+  - {fileID: 8300000, guid: aecfc735092e23e408553b2fe3f0ee9a, type: 3}
+  - {fileID: 8300000, guid: 28de7523dbc46284aa9587c1eaf3cfc3, type: 3}
+  - {fileID: 8300000, guid: d1e830c5428c37f48817bc8ad37b7449, type: 3}
+--- !u!82 &682977579
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682977574}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &705274956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5739,7 +5857,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 222.66821, y: 115.962494}
+  m_SizeDelta: {x: 497.715, y: 196.5993}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &819636581
 MonoBehaviour:
@@ -6941,10 +7059,10 @@ RectTransform:
   m_Father: {fileID: 149162982}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 0, y: 176.3857}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1016895789
 MonoBehaviour:
@@ -7346,12 +7464,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1621219632}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 54.875}
-  m_SizeDelta: {x: 603.4957, y: 109.7495}
+  m_SizeDelta: {x: 637.3524, y: 109.7495}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1071476316
 MonoBehaviour:
@@ -7375,13 +7493,13 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Nuclear reactor is about to blow up.
 
-    You volunteered to save the
-    people.
+    You volunteered to delay the
+    explosion for people to escape the town.
 
-    Try to fix reactor in order to delay the explosion.
+    Try to fix reactor in order to
+    delay the explosion.
 
-    Watch out
-    for too much radiation.
+    Watch out for too much radiation.
 
 '
   m_isRightToLeft: 0
@@ -8614,7 +8732,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.305
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9343,7 +9461,7 @@ RectTransform:
   - {fileID: 1874743941}
   - {fileID: 771851873}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -11475,8 +11593,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 991133795}
-  - {fileID: 151791661}
   - {fileID: 1071476315}
+  - {fileID: 151791661}
   - {fileID: 1116459063}
   - {fileID: 133886872}
   - {fileID: 155726626}
@@ -11487,7 +11605,7 @@ RectTransform:
   - {fileID: 31281367}
   - {fileID: 415064943}
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12607,7 +12725,7 @@ RectTransform:
   - {fileID: 1286859790}
   - {fileID: 1433007161}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -13173,7 +13291,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 448.7622, y: 115.9625}
+  m_SizeDelta: {x: 466.494, y: 215.8405}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2079680862
 MonoBehaviour:

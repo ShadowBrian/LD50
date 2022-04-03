@@ -24,6 +24,9 @@ namespace Game {
             _ => 5f,
         };
 
+        private float soundTimer = 0;
+        private readonly float soundRepeat = 5f;
+
         private void Awake()
         {
             RadioactiveMeter = 0;
@@ -55,6 +58,14 @@ namespace Game {
                     Debug.Log("FINISH, game over");
                     GameManager.Game = GameManager.GameState.End;
                     OnPlayerRadioactive?.Invoke();
+                    SoundManager.PlaySound(SoundManager.Sound.Die);
+                }
+
+                soundTimer += Time.deltaTime;
+                if(soundTimer > soundRepeat)
+                {
+                    soundTimer = 0;
+                    SoundManager.PlaySound(SoundManager.Sound.RadiationHit);
                 }
             }
         }

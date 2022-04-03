@@ -21,7 +21,7 @@ namespace Game
 
         private float ReactorMaxHeatTime => GameManager.Difficulty switch
         {
-            GameManager.GameDifficulty.Easy => 1f,
+            GameManager.GameDifficulty.Easy => 40f,
             GameManager.GameDifficulty.Medium => 35f,
             GameManager.GameDifficulty.Hard => 30f,
             GameManager.GameDifficulty.Impossible => 15f,
@@ -67,7 +67,7 @@ namespace Game
                 {
                     Debug.Log("FINISH, game over");
                     GameManager.Game = GameManager.GameState.End;
-                    SoundManager.PlaySound(SoundManager.Sound.Explosion);
+                    SoundManager.ForcePlaySound(SoundManager.Sound.Explosion);
                     OnReactorOverheat?.Invoke();
                 }
             }
