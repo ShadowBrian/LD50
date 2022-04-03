@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
 {
     public enum Sound { Explosion }
     public static Action<Sound> PlaySound;
+    public static Action<float> SetVolume;
 
     [SerializeField] private AudioClip explosion;
     private AudioSource source;
@@ -15,6 +16,11 @@ public class SoundManager : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
         PlaySound = PlayProperClip;
+        SettingsManager.OnVolumeChange += SetNewVolume;
+    }
+    private void OnDestroy()
+    {
+        SettingsManager.OnVolumeChange -= SetNewVolume;
     }
 
     private void PlayProperClip(Sound type)
@@ -24,6 +30,13 @@ public class SoundManager : MonoBehaviour
             Sound.Explosion => explosion,
             _ => explosion
         };
-        source.PlayOneShot(selectedClip);
+        if(source)
+            source.PlayOneShot(selectedClip);
+    }
+
+    private void SetNewVolume(float volume)
+    {
+        if(source)
+            source.volume = volume;
     }
 }

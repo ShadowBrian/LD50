@@ -10,22 +10,23 @@ namespace Game
     {
         [SerializeReference] private CinemachineVirtualCamera lookCamera;
         [SerializeReference] private CinemachineVirtualCamera layDownCamera;
-        [SerializeReference] private float sensitivity = 1f;
         [SerializeReference] private float playerSpeed = 0.04f;
         private CinemachinePOV aimCam;
         private CinemachineBasicMultiChannelPerlin noise;
-        //private float xRotation = 0;
+        private float sensitivity = 1f;
 
         private void Awake()
         {
             aimCam = lookCamera.GetCinemachineComponent<CinemachinePOV>();
             noise = lookCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-            
+            aimCam.m_VerticalAxis.m_MaxSpeed = sensitivity;
+
             GameStarter.OnGameStart += StartMoving;
             Controlls.OnPause += PauseCamera;
             MinigameBase.OnMinigame += PauseCamera;
             Reactor.OnReactorOverheat += PauseCameraWithShake;
             Player.OnPlayerRadioactive += PauseCameraWithLayDown;
+            SettingsManager.OnSensitivityChange += UpdateSensitivity;
             PauseCamera(true);
         }
         private void OnDestroy()
@@ -35,6 +36,12 @@ namespace Game
             MinigameBase.OnMinigame -= PauseCamera;
             Reactor.OnReactorOverheat -= PauseCameraWithShake;
             Player.OnPlayerRadioactive -= PauseCameraWithLayDown;
+            SettingsManager.OnSensitivityChange -= UpdateSensitivity;
+        }
+
+        private void UpdateSensitivity(float newSensitivity)
+        {
+            sensitivity = newSensitivity;
         }
 
         private void PauseCameraWithShake()
@@ -88,7 +95,7 @@ namespace Game
         }
         private void PauseCamera(bool isPaused)
         {
-            aimCam.m_VerticalAxis.m_MaxSpeed = isPaused ? 0 : 1;
+            aimCam.m_VerticalAxis.m_MaxSpeed = isPaused ? 0 : sensitivity;
         }
 
         private void StartMoving()
