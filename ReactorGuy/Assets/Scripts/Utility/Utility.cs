@@ -6,9 +6,9 @@ namespace Game
 {
     public static class Utility
     {
-        public static void LockCursor(bool enable)
+        public static void LockCursor(bool isLocked)
         {
-            if(enable)
+            if(isLocked)
             {
                 Cursor.lockState = CursorLockMode.Locked;
             }
@@ -16,7 +16,7 @@ namespace Game
             {
                 Cursor.lockState = CursorLockMode.Confined;
             }
-            Cursor.visible = !enable;
+            Cursor.visible = !isLocked;
         }
     }
 }

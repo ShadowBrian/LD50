@@ -314,6 +314,14 @@ MonoBehaviour:
   datas:
   - {fileID: 11400000, guid: 8bf4b1f18bf866d41a1e14263e520b3e, type: 2}
   - {fileID: 11400000, guid: 5212bd8c782d89048813b70b9d56837c, type: 2}
+  - {fileID: 11400000, guid: f8d3a2eaf891c394f9bd608ce8448918, type: 2}
+  - {fileID: 11400000, guid: d6996d437103ec54f92203bf8e721ce8, type: 2}
+  - {fileID: 11400000, guid: 6db49b345bce21c4cb69b7dec18a3c8f, type: 2}
+  - {fileID: 11400000, guid: 7c4b454029be95646ac0f4a05284d530, type: 2}
+  - {fileID: 11400000, guid: 96e55ef625e644f4ba47dcd8064cda4f, type: 2}
+  - {fileID: 11400000, guid: fe2e33670011db8428cd4116a3202317, type: 2}
+  - {fileID: 11400000, guid: 8e96f048e5074a64f849b8df4fe31718, type: 2}
+  - {fileID: 11400000, guid: b0732d7359c96744c8df177ef3aaecc9, type: 2}
 --- !u!1 &6201809525703712774
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +384,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checker: {fileID: 6201809525603050798}
+  redLight: {fileID: 0}
+  whiteLight: {fileID: 0}
   tempParentTransform: {fileID: 6201809526434631945}
   vCam: {fileID: 6201809525935290163}
   elements:

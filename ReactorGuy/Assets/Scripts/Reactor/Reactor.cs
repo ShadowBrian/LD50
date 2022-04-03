@@ -12,6 +12,8 @@ namespace Game
 
         [SerializeField] private Light light1;
         [SerializeField] private Light light2;
+        [SerializeField] private Color lightFrom;
+        [SerializeField] private Color lightTo;
 
         private readonly float maxSliderValue = 0.999f;
         protected Renderer meshRenderer;
@@ -19,7 +21,7 @@ namespace Game
 
         private float ReactorMaxHeatTime => GameManager.Difficulty switch
         {
-            GameManager.GameDifficulty.Easy => 40f,
+            GameManager.GameDifficulty.Easy => 1f,
             GameManager.GameDifficulty.Medium => 35f,
             GameManager.GameDifficulty.Hard => 30f,
             GameManager.GameDifficulty.Impossible => 15f,
@@ -46,7 +48,7 @@ namespace Game
 
         private void LowerReactorHeat()
         {
-            ReactorHeat *= 0.5f;
+            ReactorHeat *= 0.35f;
             UpdateLights();
         }
 
@@ -75,7 +77,7 @@ namespace Game
         {
             propertyBlock.SetFloat("_Percentage", ReactorHeat);
             meshRenderer.SetPropertyBlock(propertyBlock);
-            Color newColor = Color.Lerp(Color.green, Color.red, ReactorHeat);
+            Color newColor = Color.Lerp(lightFrom, lightTo, ReactorHeat);
             light1.color = newColor;
             light2.color = newColor;
         }

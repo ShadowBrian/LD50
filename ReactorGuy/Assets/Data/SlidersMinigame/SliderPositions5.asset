@@ -9,22 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e28bf4389c31af48a27a39066db07f2, type: 3}
-  m_Name: WiresPositions
+  m_Script: {fileID: 11500000, guid: a4c5908bdac2fa847ab16c65567e0834, type: 3}
+  m_Name: SliderPositions5
   m_EditorClassIdentifier: 
   _0_0: 1
   _0_1: 0
-  _0_2: 0
-  _0_3: 0
-  _1_0: 0
+  _1_0: 1
   _1_1: 0
-  _1_2: 0
-  _1_3: 0
-  _2_0: 0
-  _2_1: 0
-  _2_2: 0
-  _2_3: 0
-  _3_0: 0
-  _3_1: 0
-  _3_2: 0
-  _3_3: 1
+  _a: 0
+  _b: 0
+  _c: 0

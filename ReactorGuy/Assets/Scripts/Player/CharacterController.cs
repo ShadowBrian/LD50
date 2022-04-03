@@ -10,16 +10,16 @@ namespace Game
     {
         [SerializeReference] private CinemachineVirtualCamera lookCamera;
         [SerializeReference] private CinemachineVirtualCamera layDownCamera;
-        [SerializeReference] private float playerSpeed = 0.04f;
+        [SerializeReference] private float playerSpeed = 0.08f;
         private CinemachinePOV aimCam;
         private CinemachineBasicMultiChannelPerlin noise;
-        private float sensitivity = 1f;
+        public static float Sensitivity { get; private set; } = 1f;
 
         private void Awake()
         {
             aimCam = lookCamera.GetCinemachineComponent<CinemachinePOV>();
             noise = lookCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-            aimCam.m_VerticalAxis.m_MaxSpeed = sensitivity;
+            aimCam.m_VerticalAxis.m_MaxSpeed = Sensitivity;
 
             GameStarter.OnGameStart += StartMoving;
             Controlls.OnPause += PauseCamera;
@@ -41,7 +41,7 @@ namespace Game
 
         private void UpdateSensitivity(float newSensitivity)
         {
-            sensitivity = newSensitivity;
+            Sensitivity = newSensitivity;
         }
 
         private void PauseCameraWithShake()
@@ -95,7 +95,7 @@ namespace Game
         }
         private void PauseCamera(bool isPaused)
         {
-            aimCam.m_VerticalAxis.m_MaxSpeed = isPaused ? 0 : sensitivity;
+            aimCam.m_VerticalAxis.m_MaxSpeed = isPaused ? 0 : Sensitivity;
         }
 
         private void StartMoving()
@@ -140,10 +140,8 @@ namespace Game
 
         private void Rotation()
         {
-            float characterRotation = Mathf.Clamp(Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensitivity * 120f, -sensitivity*3, sensitivity*3);
-            Debug.Log("Rotate: " + characterRotation);
-            Quaternion characterRotate = Quaternion.AngleAxis(characterRotation, Vector3.up);
-            transform.rotation *= characterRotate;
+            float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * Sensitivity * 120f;
+            transform.Rotate(Vector3.up, mouseX);
         }
 
     }

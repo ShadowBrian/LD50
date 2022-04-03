@@ -7,6 +7,7 @@ namespace Game
     public class RaycastManager : MonoBehaviour
     {
         public static System.Func<(bool isHit,RaycastHit hitData)> GetRaycastHit;
+        public static System.Func<(bool isHit,RaycastHit hitData)> GetRaycastHitFronCam;
         public static System.Func<(bool isHit,RaycastHit hitData)> GetRaycastHitTempPlane;
 
         [SerializeField] private Transform playerCamera;
@@ -17,8 +18,17 @@ namespace Game
         {
             GetRaycastHit = TryAndGetRaycastHit;
             GetRaycastHitTempPlane = TryAndGetRaycastHitOnTempPlane;
+            GetRaycastHitFronCam = TryAndGetRaycastHitFrontCamera;
         }
 
+        private (bool, RaycastHit) TryAndGetRaycastHitFrontCamera()
+        {
+            bool isHit = false;
+            Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+            if(Physics.Raycast(ray, out RaycastHit hitData, 2, maskTempAndTriggers))
+                isHit = true;
+            return (isHit, hitData);
+        }
         private (bool, RaycastHit) TryAndGetRaycastHit()
         {
             bool isHit = false;

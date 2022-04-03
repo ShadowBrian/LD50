@@ -8,6 +8,7 @@ namespace Game
     {
         public static System.Action<bool> OnPause;
         public static System.Action<RaycastHit> OnMouseDown;
+        public static System.Action OnMouseDownF;
         public static System.Action OnMouseUp;
         public static System.Action OnMouseRightDown;
         GameManager.GameState lastState;
@@ -31,8 +32,8 @@ namespace Game
                 if(isStop)
                 {
                     GameManager.Game = lastState;
+
                     Time.timeScale = 1;
-                    Utility.LockCursor(true);
                     isStop = false;
                     OnPause?.Invoke(false);
                 }
@@ -41,7 +42,6 @@ namespace Game
                     lastState = GameManager.Game;
                     GameManager.Game = GameManager.GameState.Paused;
                     Time.timeScale = 0;
-                    Utility.LockCursor(false);
                     isStop = true;
                     OnPause?.Invoke(true);
                 }
@@ -49,12 +49,12 @@ namespace Game
 
             if(Input.GetKeyDown(KeyCode.Mouse0))
             {
-                (bool isHit, RaycastHit hitData) = RaycastManager.GetRaycastHit();
-                if(isHit)
-                {
-                    OnMouseDown?.Invoke(hitData);
-                    isHoldingMouse0 = true;
-                }
+
+            }
+            if(Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                OnMouseDownF?.Invoke();
+                isHoldingMouse0 = true;
             }
             if(Input.GetKeyUp(KeyCode.Mouse0))
             {

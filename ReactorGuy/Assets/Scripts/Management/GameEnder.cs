@@ -13,6 +13,12 @@ namespace Game
         int textIndex;
         bool isReactorFault = false;
 
+        public void Button_PlayAgain()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        }
+
+
         private void Awake()
         {
             textIndex = 0;
@@ -53,7 +59,8 @@ namespace Game
             }
             else
             {
-                StartCoroutine(SmoothCanvasAppear(canvases[textIndex], 2f, 1f,
+                float pauseTime = textIndex + 1 < canvases.Count ? 1f : 0f;
+                StartCoroutine(SmoothCanvasAppear(canvases[textIndex], 2f, pauseTime,
                    () =>
                    {
                        if(++textIndex < canvases.Count)
@@ -61,6 +68,7 @@ namespace Game
                        else
                        {
                            Debug.Log("GAME ENDED");
+                           canvases[textIndex - 1].ignoreParentGroups = true;
                            Utility.LockCursor(false);
                            Cursor.lockState = CursorLockMode.None;
                        }

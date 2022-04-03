@@ -41,6 +41,10 @@ namespace Game
             else
             {
                 StartCoroutine(SmoothOut());
+
+                if(GameManager.Game == GameManager.GameState.Play)
+                    Utility.LockCursor(true);
+
                 darkenG.alpha = 0;
                 darkenG.blocksRaycasts = false;
             }
@@ -52,6 +56,7 @@ namespace Game
             float maxTime = 0.5f;
             float timer = 0;
             Vector2 newPoisition = settings.anchoredPosition;
+            Cursor.lockState = CursorLockMode.Locked;
             while(true)
             {
                 yield return null;
@@ -64,6 +69,8 @@ namespace Game
                 {
                     newPoisition.x = targetPosition;
                     settings.anchoredPosition = newPoisition;
+                    Cursor.lockState = CursorLockMode.Confined;
+                    Utility.LockCursor(false);
                     yield break;
                 }
             }

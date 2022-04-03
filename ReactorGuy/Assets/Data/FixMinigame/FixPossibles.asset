@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FixPossibles
   m_EditorClassIdentifier: 
   firstTool: 0
-  secondTool: 0
-  thirdTool: 0
+  secondTool: 1
+  thirdTool: 2
   wireNumber: 0

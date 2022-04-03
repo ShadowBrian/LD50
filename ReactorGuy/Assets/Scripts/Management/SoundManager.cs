@@ -11,10 +11,12 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField] private AudioClip explosion;
     private AudioSource source;
+    public static float Volume { get; private set; } = 0.5f;
 
     private void Awake()
     {
         source = GetComponent<AudioSource>();
+        source.volume = Volume;
         PlaySound = PlayProperClip;
         SettingsManager.OnVolumeChange += SetNewVolume;
     }
@@ -36,6 +38,7 @@ public class SoundManager : MonoBehaviour
 
     private void SetNewVolume(float volume)
     {
+        Volume = volume;
         if(source)
             source.volume = volume;
     }

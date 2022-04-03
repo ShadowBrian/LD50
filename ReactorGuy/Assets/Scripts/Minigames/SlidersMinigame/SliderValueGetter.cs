@@ -23,5 +23,11 @@ public class SliderValueGetter : MonoBehaviour
         return Mathf.Clamp01(Mathf.InverseLerp(min, max, worldY));
     }
 
+    public static (float downY, float upY) GetY()
+    {
+        return (downS.position.y, upS.position.y);
+    }
+
+
 
 }

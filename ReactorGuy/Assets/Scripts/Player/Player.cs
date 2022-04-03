@@ -18,11 +18,16 @@ namespace Game {
         private float RecoverSpeed => GameManager.Difficulty switch
         {
             GameManager.GameDifficulty.Easy => 5f,
-            GameManager.GameDifficulty.Medium => 6f,
-            GameManager.GameDifficulty.Hard => 7f,
-            GameManager.GameDifficulty.Impossible => 1f,
+            GameManager.GameDifficulty.Medium => 7f,
+            GameManager.GameDifficulty.Hard => 9f,
+            GameManager.GameDifficulty.Impossible => 5f,
             _ => 5f,
         };
+
+        private void Awake()
+        {
+            RadioactiveMeter = 0;
+        }
 
 
         private void Update()

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c5908bdac2fa847ab16c65567e0834, type: 3}
   m_Name: SliderPositions2
   m_EditorClassIdentifier: 
-  _0_0: 1
+  _0_0: 0
   _0_1: 0
   _1_0: 0
   _1_1: 0
   _a: 0.5
   _b: 1
-  _c: 0
+  _c: 0.5

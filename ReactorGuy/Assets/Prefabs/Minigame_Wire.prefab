@@ -822,7 +822,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   datas:
   - {fileID: 11400000, guid: 03c13fbc79def424790f9c49b68938ce, type: 2}
-  - {fileID: 11400000, guid: 486d4a76f2662d3458599df8e337d91d, type: 2}
+  - {fileID: 11400000, guid: 0b1fdb8ea0ab62e4ea00d05085e65d7f, type: 2}
+  - {fileID: 11400000, guid: 3f0b85c506b6157488c088f34a322507, type: 2}
+  - {fileID: 11400000, guid: 65b3f28eb267e53489c5b2777efa3b22, type: 2}
+  - {fileID: 11400000, guid: eec595c21751dc744aa7571135006c5d, type: 2}
+  - {fileID: 11400000, guid: 83ad8c66c0a894b45a04e8cb55b20154, type: 2}
+  - {fileID: 11400000, guid: aa3fcdf75fcf2a6419622dcf2516e945, type: 2}
+  - {fileID: 11400000, guid: 872eb4efc0acd49448899607bb7c838b, type: 2}
   properWireColliders: []
 --- !u!1 &2695552337118087734
 GameObject:
@@ -1473,7 +1479,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checker: {fileID: 2695552337031150030}
-  activationLight: {fileID: 0}
+  redLight: {fileID: 0}
+  whiteLight: {fileID: 0}
   tempParentTransform: {fileID: 2695552337862594031}
   vCam: {fileID: 2695552337363250133}
   elements:

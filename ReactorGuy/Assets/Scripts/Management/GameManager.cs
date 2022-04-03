@@ -23,12 +23,12 @@ namespace Game {
         private void Awake()
         {
             GameStarter.OnGameStart += StartGame;
-            Controlls.OnMouseDown += TryStartMinigame;
+            Controlls.OnMouseDownF += TryStartMinigame;
         }
         private void OnDestroy()
         {
             GameStarter.OnGameStart -= StartGame;
-            Controlls.OnMouseDown -= TryStartMinigame;
+            Controlls.OnMouseDownF -= TryStartMinigame;
         }
 
 
@@ -65,14 +65,22 @@ namespace Game {
             }
         }
 
-        private void TryStartMinigame(RaycastHit hitData)
+        private void TryStartMinigame()
         {
-            if(hitData.transform.CompareTag("Minigame") && Game != GameState.Minigame)
+            if(Game == GameState.Minigame)
+                return;
+
+            (bool isHit, RaycastHit hitData) = RaycastManager.GetRaycastHitFronCam();
+            if(isHit)
             {
-                //start minigame
-                MinigameBase minigame = hitData.transform.GetComponent<MinigameBase>();
-                minigame.TryActivateMinigame();
+                if(hitData.transform.CompareTag("Minigame"))
+                {
+                    //start minigame
+                    MinigameBase minigame = hitData.transform.GetComponent<MinigameBase>();
+                    minigame.TryActivateMinigame();
+                }
             }
+            
         }
     }
 }

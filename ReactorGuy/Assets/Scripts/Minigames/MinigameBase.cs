@@ -21,7 +21,7 @@ namespace Game {
         private bool isMinigameOnCooldown;
         private MinigameElementBase holdingElement;
         private float cooldown = 0;
-        private readonly float cooldownTime = 5f;
+        private readonly float cooldownTime = 25f;
 
 
         protected virtual void Start()
@@ -33,7 +33,7 @@ namespace Game {
             }
             PrepareMinigame();
             isMinigameActive = false;
-            Controlls.OnMouseDown += MouseDown;
+            Controlls.OnMouseDownF += MouseDown;
             Controlls.OnMouseUp += MouseUp;
             Controlls.OnMouseRightDown += ExitMinigame;
             Reactor.OnReactorOverheat += EmergencyExitMinigame;
@@ -42,11 +42,15 @@ namespace Game {
         }
         private void OnDestroy()
         {
-            Controlls.OnMouseDown -= MouseDown;
+            foreach(var element in elements)
+            {
+                element.OnChanged -= CheckIfMinigameDone;
+            }
+            Controlls.OnMouseDownF -= MouseDown;
             Controlls.OnMouseUp -= MouseUp;
             Controlls.OnMouseRightDown -= ExitMinigame;
-            Reactor.OnReactorOverheat += EmergencyExitMinigame;
-            Player.OnPlayerRadioactive += EmergencyExitMinigame;
+            Reactor.OnReactorOverheat -= EmergencyExitMinigame;
+            Player.OnPlayerRadioactive -= EmergencyExitMinigame;
         }
 
         protected virtual void Update()
@@ -90,8 +94,13 @@ namespace Game {
             }
         }
 
-        private void MouseDown(RaycastHit hitData)
+        private void MouseDown()
         {
+            (bool isHit, RaycastHit hitData) = RaycastManager.GetRaycastHit();
+
+            if(!isHit)
+                return;
+
             if(!isMinigameActive || GameManager.Game == GameManager.GameState.Paused)
                 return;
 
@@ -142,12 +151,14 @@ namespace Game {
         {
             if(isMinigameOnCooldown)
                 return false;
+
             minigameCollider.enabled = false;
             GameManager.Game = GameManager.GameState.Minigame;
             Utility.LockCursor(false);
             vCam.gameObject.SetActive(true);
             isMinigameActive = true;
             OnMinigame?.Invoke(true);
+
             return true;
         }
 

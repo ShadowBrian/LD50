@@ -6,12 +6,14 @@ namespace Game
 {
     public class HoldableMinigameElement : MinigameElementBase
     {
+        [SerializeField] private Collider firstCollider;
         [SerializeField] protected Transform followTransform;
         private ProperWirePositionChecker properChecker;
 
         protected override void Awake()
         {
             base.Awake();
+            snappedCollider = firstCollider;
             followTransform.position = transform.position;
             if(this is not SliderHoldableMinigameElement && this is not FixHoldableMinigameElement) //XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
                 properChecker = (ProperWirePositionChecker)checker;
@@ -47,6 +49,22 @@ namespace Game
             followTransform.localPosition = Vector3.zero;
             propertyBlock.SetColor("_BaseColor", Color.red);
             meshRenderer.SetPropertyBlock(propertyBlock);
+        }
+
+        public override void ResetElement()
+        {
+            if(properChecker.properWireColliders.Contains(snappedCollider))
+            {
+                IsOnProperPosition = true;
+                propertyBlock.SetColor("_BaseColor", Color.green);
+                meshRenderer.SetPropertyBlock(propertyBlock);
+            }
+            else
+            {
+                IsOnProperPosition = false;
+                propertyBlock.SetColor("_BaseColor", Color.red);
+                meshRenderer.SetPropertyBlock(propertyBlock);
+            }
         }
 
 
