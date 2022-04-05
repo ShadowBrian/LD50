@@ -9,11 +9,12 @@ namespace Game
         [SerializeField] private Collider firstCollider;
         [SerializeField] protected Transform followTransform;
         private ProperWirePositionChecker properChecker;
+        private Collider lastSnappedCollider;
 
         protected override void Awake()
         {
             base.Awake();
-            snappedCollider = firstCollider;
+            lastSnappedCollider = snappedCollider = firstCollider;
             followTransform.position = transform.position;
             if(this is not SliderHoldableMinigameElement && this is not FixHoldableMinigameElement) //XDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
                 properChecker = (ProperWirePositionChecker)checker;
@@ -77,8 +78,14 @@ namespace Game
         {
             if(other.CompareTag("Position"))
             {
+                lastSnappedCollider = snappedCollider;
                 snappedCollider = other;
             }
+            else if(other.CompareTag("Wire"))
+            {
+                snappedCollider = lastSnappedCollider;
+            }
         }
+
     }
 }

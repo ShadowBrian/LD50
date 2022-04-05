@@ -37,7 +37,7 @@ namespace Game
             localPos.z = transform.localPosition.z;
             followTransform.localPosition = localPos;
 
-            IsOnProperPosition = Mathf.Abs(SliderValueGetter.Value(followTransform.position.y) - position.ProperValue) < 0.1f;
+            IsOnProperPosition = Mathf.Abs(SliderValueGetter.Value(followTransform.position.y) - position.ProperValue) < 0.25f;
             if(IsOnProperPosition)
             {
                 propertyBlock.SetColor("_BaseColor", Color.green);
@@ -54,7 +54,7 @@ namespace Game
         {
             followTransform.parent = minigameParent;
 
-            IsOnProperPosition = Mathf.Abs(SliderValueGetter.Value(transform.position.y) - position.ProperValue) < 0.1f;
+            IsOnProperPosition = Mathf.Abs(SliderValueGetter.Value(followTransform.position.y) - position.ProperValue) < 0.25f;
 
             if(IsOnProperPosition)
             {
