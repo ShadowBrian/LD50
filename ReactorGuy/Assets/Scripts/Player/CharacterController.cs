@@ -52,14 +52,14 @@ namespace Game
             {
                 float maxTime = 10f;
                 float timer = 0;
-                while(true)
+                while (true)
                 {
                     yield return null;
                     timer += Time.deltaTime;
                     float t = timer / maxTime;
                     float newAlpha = Mathf.Lerp(0, 10, t);
                     noise.m_AmplitudeGain = newAlpha;
-                    if(newAlpha >= 10)
+                    if (newAlpha >= 10)
                     {
                         noise.m_AmplitudeGain = 0;
                         yield break;
@@ -78,14 +78,14 @@ namespace Game
             {
                 float maxTime = 10f;
                 float timer = 0;
-                while(true)
+                while (true)
                 {
                     yield return null;
                     timer += Time.deltaTime;
                     float t = timer / maxTime;
                     float newAlpha = Mathf.Lerp(0, 5, t);
                     noise.m_AmplitudeGain = newAlpha;
-                    if(newAlpha >= 5)
+                    if (newAlpha >= 5)
                     {
                         noise.m_AmplitudeGain = 0;
                         yield break;
@@ -100,7 +100,7 @@ namespace Game
 
         private void StartMoving()
         {
-            StartCoroutine(WaitForBlend()); 
+            StartCoroutine(WaitForBlend());
 
             IEnumerator WaitForBlend()
             {
@@ -121,25 +121,30 @@ namespace Game
 
         void Update()
         {
-            if(GameManager.Game != GameManager.GameState.Play)
+            if (GameManager.Game != GameManager.GameState.Play)
                 return;
 
             Movement();
             Rotation();
         }
 
+        public Transform VRHead;
+
         private void Movement()
         {
-            float curSpeedForward = Input.GetAxisRaw("Vertical");
-            float curSpeedRight = Input.GetAxisRaw("Horizontal");
-            Vector3 positionChange = transform.forward * curSpeedForward + transform.right * curSpeedRight;
+            float curSpeedForward = UnityXRInputBridge.instance.GetVec2(XR2DAxisMasks.primary2DAxis, XRHandSide.LeftHand).y;
+            float curSpeedRight = UnityXRInputBridge.instance.GetVec2(XR2DAxisMasks.primary2DAxis, XRHandSide.LeftHand).x;
+            Vector3 positionChange = VRHead.transform.forward * curSpeedForward + VRHead.transform.right * curSpeedRight;
+
+            positionChange.y = 0f;
+
             transform.position += playerSpeed * Time.deltaTime * positionChange.normalized;
         }
 
         private void Rotation()
         {
-            float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * Sensitivity * 120f;
-            transform.Rotate(Vector3.up, mouseX);
+            //float mouseX = UnityXRInputBridge.instance.GetVec2(XR2DAxisMasks.primary2DAxis, XRHandSide.RightHand).x * Time.deltaTime * Sensitivity * 120f;
+            //transform.Rotate(Vector3.up, mouseX);
         }
 
     }

@@ -18,6 +18,17 @@ namespace Game
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
 
+        public void Update()
+        {
+            if (looseRadiationTexts[1].alpha >= 1f)
+            {
+                if (UnityXRInputBridge.instance.GetButtonDown(XRButtonMasks.primaryButton, XRHandSide.LeftHand))
+                {
+                    Button_PlayAgain();
+                }
+            }
+        }
+
 
         private void Awake()
         {
@@ -44,7 +55,7 @@ namespace Game
 
         private void TurnOnProperText()
         {
-            if(GameManager.IsGameWon)
+            if (GameManager.IsGameWon)
                 ShowProperTextsList(winTexts);
             else
                 ShowProperTextsList(isReactorFault ? looseReactorTexts : looseRadiationTexts);
@@ -53,7 +64,7 @@ namespace Game
         private void ShowProperTextsList(List<CanvasGroup> canvases)
         {
             int lastIndex = Mathf.Max(0, textIndex - 1);
-            if(canvases[lastIndex].alpha == 1)
+            if (canvases[lastIndex].alpha == 1)
             {
                 StartCoroutine(SmoothCanvasDisappear(canvases[lastIndex], () => ShowProperTextsList(canvases)));
             }
@@ -63,7 +74,7 @@ namespace Game
                 StartCoroutine(SmoothCanvasAppear(canvases[textIndex], 2f, pauseTime,
                    () =>
                    {
-                       if(++textIndex < canvases.Count)
+                       if (++textIndex < canvases.Count)
                            ShowProperTextsList(canvases);
                        else
                        {
@@ -80,14 +91,14 @@ namespace Game
         {
             float maxTime = appearTime;
             float timer = 0;
-            while(true)
+            while (true)
             {
                 yield return null;
                 timer += Time.deltaTime;
                 float t = timer / maxTime;
                 float newAlpha = Mathf.Lerp(0, 1, t);
                 canvas.alpha = newAlpha;
-                if(canvas.alpha >= 1)
+                if (canvas.alpha >= 1)
                 {
                     yield return new WaitForSecondsRealtime(pause);
                     OnEnd?.Invoke();
@@ -99,14 +110,14 @@ namespace Game
         {
             float maxTime = 2f;
             float timer = 0;
-            while(true)
+            while (true)
             {
                 yield return null;
                 timer += Time.deltaTime;
                 float t = timer / maxTime;
                 float newAlpha = Mathf.Lerp(1, 0, t);
                 canvas.alpha = newAlpha;
-                if(canvas.alpha <= 0)
+                if (canvas.alpha <= 0)
                 {
                     OnEnd?.Invoke();
                     yield break;

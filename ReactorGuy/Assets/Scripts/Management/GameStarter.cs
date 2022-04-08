@@ -23,6 +23,19 @@ namespace Game
             easyModeStartButton.onClick.AddListener(StartEasyGame);
         }
 
+        private void Update()
+        {
+            if (UnityXRInputBridge.instance.GetButtonDown(XRButtonMasks.triggerButton, XRHandSide.LeftHand))
+            {
+                StartEasyGame();
+            }
+
+            if (UnityXRInputBridge.instance.GetButtonDown(XRButtonMasks.triggerButton, XRHandSide.RightHand))
+            {
+                StartGame();
+            }
+        }
+
         private void StartGame()
         {
             GameManager.Mode = GameManager.GameMode.Normal;

@@ -19,17 +19,17 @@ namespace Game
         // Update is called once per frame
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
-                Cursor.lockState = CursorLockMode.None;
+            //if(Input.GetKeyDown(KeyCode.Escape))
+            //Cursor.lockState = CursorLockMode.None;
 
 
-            if(GameManager.Game == GameManager.GameState.Start || GameManager.Game == GameManager.GameState.End)
+            if (GameManager.Game == GameManager.GameState.Start || GameManager.Game == GameManager.GameState.End)
                 return;
 
 
-            if(Input.GetKeyDown(KeyCode.Q))
+            if (UnityXRInputBridge.instance.GetButtonDown(XRButtonMasks.secondaryButton, XRHandSide.RightHand) || UnityXRInputBridge.instance.GetButtonDown(XRButtonMasks.secondaryButton, XRHandSide.LeftHand))
             {
-                if(isStop)
+                if (isStop)
                 {
                     GameManager.Game = lastState;
 
@@ -47,25 +47,21 @@ namespace Game
                 }
             }
 
-            if(Input.GetKeyDown(KeyCode.Mouse0))
-            {
-
-            }
-            if(Input.GetKeyDown(KeyCode.Mouse0))
+            if (UnityXRInputBridge.instance.GetButtonDown(XRButtonMasks.triggerButton, XRHandSide.LeftHand) || UnityXRInputBridge.instance.GetButtonDown(XRButtonMasks.triggerButton, XRHandSide.RightHand))
             {
                 OnMouseDownF?.Invoke();
                 isHoldingMouse0 = true;
             }
-            if(Input.GetKeyUp(KeyCode.Mouse0))
+            if (UnityXRInputBridge.instance.GetButtonUp(XRButtonMasks.triggerButton, XRHandSide.LeftHand) || UnityXRInputBridge.instance.GetButtonUp(XRButtonMasks.triggerButton, XRHandSide.RightHand))
             {
-                if(isHoldingMouse0)
+                if (isHoldingMouse0)
                 {
                     isHoldingMouse0 = false;
                     OnMouseUp?.Invoke();
                 }
             }
 
-            if(Input.GetKeyDown(KeyCode.Mouse1))
+            if (UnityXRInputBridge.instance.GetButtonDown(XRButtonMasks.primaryButton, XRHandSide.RightHand) || UnityXRInputBridge.instance.GetButtonDown(XRButtonMasks.primaryButton, XRHandSide.LeftHand))
             {
                 OnMouseRightDown?.Invoke();
             }
