@@ -3,3 +3,5 @@ Ludum dare 50 - Theme: Delay the inevitable
 
 Created repo for this project, pushing major stages of development.
 Don't judge the code, it was made super fast and can be improved A LOT. What's important, it works :)
+
+This repo specifically is a fork of the original to add OpenXR-based VR support through UnityXR.
